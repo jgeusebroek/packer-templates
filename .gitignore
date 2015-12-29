@@ -1,0 +1,11 @@
+*.qcow
+*.qcow2
+*.ovf
+*.vmdk
+*.raw
+*output-*
+output/*
+builds/*
+packer_cache
+.vagrant
+Vagrantfile
