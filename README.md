@@ -20,7 +20,7 @@ To limit a vagrant build to only virtualbox or vmware, use the `-limit=virtualbo
 ## vSphere
 
 Firstly `cp environment.sh.dist environment.sh && chmod 700 environment.sh` and fill in the variables.
-Before staring packer run `environment.sh` to set the necessary variables.
+Before running packer, run `environment.sh` to set the necessary variables.
 
 `$ packer build -var-file=debian-8.json debian-vsphere.json`
 
