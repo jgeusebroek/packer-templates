@@ -36,8 +36,9 @@ Access to the console is available with libvirt.
 
 The vagrant boxes build by these templates are publicly available:
 
+[jgeusebroek/debian-7](https://atlas.hashicorp.com/jgeusebroek/boxes/debian-7) |
 [jgeusebroek/debian-8](https://atlas.hashicorp.com/jgeusebroek/boxes/debian-8) |
-[jgeusebroek/centos-7](https://atlas.hashicorp.com/jgeusebroek/boxes/centos-7) | 
+[jgeusebroek/centos-7](https://atlas.hashicorp.com/jgeusebroek/boxes/centos-7) |
 [jgeusebroek/ubuntu-1404](https://atlas.hashicorp.com/jgeusebroek/boxes/ubuntu-1404)
 
 I try to keep them up-to-date, but best to update using the distribution package tool.
