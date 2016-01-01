@@ -1,0 +1,128 @@
+{
+  "variables": {
+    "vm_name": "debian-8",
+    "hostname": "localhost",
+    "domain": "",
+
+    "cpus": "4",
+    "disk_size": "20480",
+    "memory": "1024",
+
+    "preseed": "preseed_jessie.cfg",
+    "install_vagrant_key": "true",
+
+    "cm": "nocm",
+    "cm_version": "",
+    "headless": "",
+
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "ftp_proxy": "{{env `ftp_proxy`}}",
+    "rsync_proxy": "{{env `rsync_proxy`}}",
+    "no_proxy": "{{env `no_proxy`}}",
+
+    "ssh_username": "root",
+    "ssh_password": "toor",
+    "ssh_public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCKX1GgcYxFjdSqUIMoQi41TnF8H9U3L7UYEkRHDxLWE+niTK+cJWZRLCsZFctP2uD3clTcFtsroIUPpNH7aNIQXV7tn74wQtms72cgAdldMjT5mbfkZzspC0KBTIsJAWIFflVAvu/zWD1cl7pDlA9w6t80OzAVe9KqTcpKJjxL4K5iPKOPIeFqzYDVUGqAbR7HlWOdGNKOB1RmakJMvKjW7nIEL81DGjaC/UK+Tzjg8M6J3idNjHnnRSM5O4UsnWBGHbkjSlFihqS333xG31YteGBtUa1mhg25M4h5Pl08U4Mjs8lyNvM3Mxws54/dP+0YHI5/VhUW3EqSRGHw+G1 images@intellit.nl",
+
+    "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
+    "iso_checksum_type": "md5",
+    "iso_name": "debian-8.2.0-amd64-netinst.iso",
+    "iso_url": "http://cdimage.debian.org/debian-cd/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
+
+    "update": "false",
+    "whiteout": "true",
+    "unique_host_ssh_key": "true"
+
+  },
+  "builders": [
+    {
+      "type": "qemu",
+      "vm_name": "{{ user `vm_name`}}",
+      "disk_size": "{{user `disk_size`}}",
+
+      "boot_wait": "10s",
+      "http_directory": "http",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "ssh_port": 22,
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_wait_timeout": "10000s",
+
+      "headless": "{{user `headless`}}",
+
+      "boot_command": [
+        "<esc><wait><wait>",
+        "install auto ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed`}} ",
+        "debian-installer=en_US locale=en_US keymap=us ",
+        "netcfg/get_hostname={{ user `hostname`}} ",
+        "netcfg/get_domain={{ user `domain`}} ",
+
+        "fb=false debconf/frontend=noninteractive ",
+
+        "passwd/root-login=true ",
+        "passwd/make-user=false ",
+
+        "passwd/root-password={{user `ssh_password`}} ",
+        "passwd/root-password-again={{user `ssh_password`}} ",
+
+        "<enter>"
+      ],
+      "shutdown_command": "shutdown -h now",
+
+      "accelerator": "kvm",
+      "format": "qcow2",
+      "disk_cache": "writeback",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+
+      "qemuargs": [
+        [ "-cpu", "host" ],
+        [ "-smp", "{{user `cpus`}}" ],
+        [ "-m", "{{user `memory`}}" ],
+        [ "-nographic" ]
+      ]
+
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+
+      "environment_vars": [
+        "CM={{user `cm`}}",
+        "CM_VERSION={{user `cm_version`}}",
+        "UPDATE={{user `update`}}",
+        "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+        "UNIQUE_HOST_SSH_KEY={{ user `unique_host_ssh_key`}}",
+        "SSH_USERNAME={{user `ssh_username`}}",
+        "SSH_PASSWORD={{user `ssh_password`}}",
+        "SSH_PUBLIC_KEY={{user `ssh_public_key`}}",
+        "WHITEOUT={{user `whiteout`}}",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "ftp_proxy={{user `ftp_proxy`}}",
+        "rsync_proxy={{user `rsync_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+
+      "execute_command": "{{.Vars}} bash '{{.Path}}'",
+      "scripts": [
+        "scripts/remove-cdrom-sources.sh",
+        "scripts/update.sh",
+        "scripts/tweaks.sh",
+        "scripts/vm-tools.sh",
+        "scripts/cmtool.sh",
+        "scripts/motd.sh",
+        "scripts/minimize.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ]
+
+}

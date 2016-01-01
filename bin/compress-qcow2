@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#set -x
+
+if [ -z "$1" ]
+ then
+   echo "Error: Need filename as an argument."
+   exit 1
+fi
+
+if [ ! -f "$1" ]; then
+    echo "Error: File '$1' not found!"
+    exit 1
+fi
+
+qemu-img convert -O qcow2 -c $1 ${1}-new
+rm -f $1
+mv ${1}-new $1

@@ -1,0 +1,17 @@
+{
+  "_comment": "Build with `packer build -var-file=centos-7.json centos-vagrant.json`",
+
+  "vm_name": "centos-7",
+
+  "cpus": "4",
+  "disk_size": "20480",
+  "memory": "1024",
+
+  "kickstart": "ks7.cfg",
+  "docker": "false",
+
+  "iso_checksum": "b9e2480ca2f1b17f27c03f2cf31c4920d5cc70bf",
+  "iso_checksum_type": "sha1",
+  "iso_name": "CentOS-7-x86_64-NetInstall-1511.iso",
+  "iso_url": "http://ftp.nluug.nl/ftp/pub/os/Linux/distr/CentOS/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1511.iso"
+}

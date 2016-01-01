@@ -1,0 +1,171 @@
+{
+  "variables": {
+
+    "vm_name": "centos-7",
+
+    "vmware_guest_os_type": "centos-64",
+    "vmware_tools_location": "/home/vagrant/linux.iso",
+    "vmware_tools_type": "vmware",
+    "virtualbox_guest_os_type": "RedHat_64",
+
+    "cpus": "4",
+    "disk_size": "20480",
+    "memory": "1024",
+
+    "kickstart": "ks7-vagrant.cfg",
+    "install_vagrant_key": "true",
+    "docker": "false",
+
+    "cm": "nocm",
+    "cm_version": "",
+    "headless": "",
+
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "ftp_proxy": "{{env `ftp_proxy`}}",
+    "rsync_proxy": "{{env `rsync_proxy`}}",
+    "no_proxy": "{{env `no_proxy`}}",
+
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant",
+
+    "iso_checksum": "b9e2480ca2f1b17f27c03f2cf31c4920d5cc70bf",
+    "iso_checksum_type": "sha1",
+    "iso_name": "CentOS-7-x86_64-NetInstall-1511.iso",
+    "iso_url": "http://ftp.nluug.nl/ftp/pub/os/Linux/distr/CentOS/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1511.iso",
+
+    "update": "false",
+    "whiteout": "true",
+    "unique_host_ssh_key": "false"
+
+  },
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name`}}",
+      "disk_size": "{{ user `disk_size`}}",
+
+      "boot_wait": "10s",
+      "http_directory": "http",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "tools_upload_flavor": "linux",
+
+      "ssh_port": 22,
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_wait_timeout": "10000s",
+
+      "headless": "{{ user `headless`}}",
+
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `kickstart`}}<enter><wait>"
+      ],
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo '{{user `ssh_password`}}'|sudo -S sh '/tmp/shutdown.sh'",
+
+      "version": "11",
+
+      "vmx_data": {
+        "guestos": "{{ user `vmware_guest_os_type`}}",
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}",
+        "cpuid.coresPerSocket": "1"
+      }
+    },
+    {
+      "type": "virtualbox-iso",
+      "vm_name": "{{ user `vm_name`}}",
+      "disk_size": "{{ user `disk_size`}}",
+
+      "boot_wait": "10s",
+      "http_directory": "http",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "ssh_port": 22,
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_wait_timeout": "10000s",
+
+      "headless": "{{ user `headless`}}",
+
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `kickstart`}}<enter><wait>"
+      ],
+      "shutdown_command": "echo '/sbin/halt -h -p' > /tmp/shutdown.sh; echo '{{user `ssh_password`}}'|sudo -S sh '/tmp/shutdown.sh'",
+
+      "guest_os_type": "{{user `virtualbox_guest_os_type`}}",
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "hard_drive_interface": "sata",
+
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{user `memory`}}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "{{user `cpus`}}"
+        ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+
+      "environment_vars": [
+        "CM={{user `cm`}}",
+        "CM_VERSION={{user `cm_version`}}",
+        "UPDATE={{user `update`}}",
+        "DOCKER={{user `docker`}}",
+        "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+        "VMWARE_TOOLS_LOCATION={{ user `vmware_tools_location`}}",
+        "VMWARE_TOOLS_TYPE={{ user `vmware_tools_type`}}",
+        "UNIQUE_HOST_SSH_KEY={{ user `unique_host_ssh_key`}}",
+        "SSH_USERNAME={{user `ssh_username`}}",
+        "SSH_PASSWORD={{user `ssh_password`}}",
+        "SSH_PUBLIC_KEY={{user `ssh_public_key`}}",
+        "WHITEOUT={{user `whiteout`}}",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "ftp_proxy={{user `ftp_proxy`}}",
+        "rsync_proxy={{user `rsync_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+
+      "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S sh '{{.Path}}'",
+      "scripts": [
+        "scripts/fix-slow-dns.sh",
+        "scripts/update.sh",
+        "scripts/vagrant.sh",
+        "scripts/tweaks.sh",
+        "scripts/kernel-docker.sh",
+        "scripts/docker.sh",
+        "scripts/vm-tools.sh",
+        "scripts/cmtool.sh",
+        "scripts/motd.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ],
+
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "compression_level": 6,
+      "output": "../builds/{{.Provider}}/{{ user `vm_name` }}_{{.Provider}}.box"
+    }
+  ]
+
+}

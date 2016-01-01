@@ -9,3 +9,4 @@ builds/*
 packer_cache
 .vagrant
 Vagrantfile
+environment.sh

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Esxi host where we can build the machine
+export PACKER_VMWARE_HOST=''
+
+# Esxi host username / passwd
+export PACKER_VMWARE_USERNAME=''
+export PACKER_VMWARE_PASSWORD=''
+
+# Esxi datastore
+export PACKER_VMWARE_DATASTORE=''
+
+# Mandatory network settings
+export PACKER_VMWARE_NETWORK=''
+export PACKER_VMWARE_MAC=''
+
+# VMware version (11 for esxi 6, 10 for esxi 5.5)
+export PACKER_VMWARE_VM_VERSION=''

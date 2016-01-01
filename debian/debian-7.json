@@ -1,0 +1,20 @@
+{
+  "_comment": "Build with `packer build -var-file=debian-7.json debian-vagrant.json`",
+
+  "vm_name": "debian-7",
+  "hostname": "localhost",
+  "domain": "",
+
+  "cpus": "4",
+  "disk_size": "20480",
+  "memory": "1024",
+
+  "preseed" : "preseed_jessie.cfg",
+
+  "iso_checksum": "97ea6007435f83007219441b6d64ff4fbcca928c",
+  "iso_checksum_type": "sha1",
+  "iso_name": "debian-7.9.0-amd64-DVD-1.iso",
+  "iso_url": "http://cdimage.debian.org/cdimage/archive/7.9.0/amd64/iso-cd/debian-7.9.0-amd64-netinst.iso",
+
+  "vmware_guest_os_type": "debian7-64"
+}

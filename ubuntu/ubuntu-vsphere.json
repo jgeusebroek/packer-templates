@@ -1,0 +1,182 @@
+{
+  "variables": {
+
+    "vm_name": "ubuntu-1404",
+    "hostname": "localhost",
+    "domain": "",
+
+    "vmware_guest_os_type": "ubuntu-64",
+    "vmware_tools_location": "/home/vagrant/linux.iso",
+    "vmware_tools_type": "distro",
+    "virtualbox_guest_os_type": "Ubuntu_64",
+
+    "cpus": "4",
+    "disk_size": "20480",
+    "memory": "1024",
+
+    "preseed": "preseed_1404.cfg",
+    "install_vagrant_key": "true",
+    "docker": "false",
+
+    "cm": "nocm",
+    "cm_version": "",
+    "headless": "",
+
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "ftp_proxy": "{{env `ftp_proxy`}}",
+    "rsync_proxy": "{{env `rsync_proxy`}}",
+    "no_proxy": "{{env `no_proxy`}}",
+
+    "ssh_username": "root",
+    "ssh_password": "toor",
+    "ssh_public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCKX1GgcYxFjdSqUIMoQi41TnF8H9U3L7UYEkRHDxLWE+niTK+cJWZRLCsZFctP2uD3clTcFtsroIUPpNH7aNIQXV7tn74wQtms72cgAdldMjT5mbfkZzspC0KBTIsJAWIFflVAvu/zWD1cl7pDlA9w6t80OzAVe9KqTcpKJjxL4K5iPKOPIeFqzYDVUGqAbR7HlWOdGNKOB1RmakJMvKjW7nIEL81DGjaC/UK+Tzjg8M6J3idNjHnnRSM5O4UsnWBGHbkjSlFihqS333xG31YteGBtUa1mhg25M4h5Pl08U4Mjs8lyNvM3Mxws54/dP+0YHI5/VhUW3EqSRGHw+G1 images@intellit.nl",
+
+    "iso_checksum": "9e5fecc94b3925bededed0fdca1bd417",
+    "iso_checksum_type": "md5",
+    "iso_name": "ubuntu-14.04.3-server-amd64.iso",
+    "iso_url": "http://nl.releases.ubuntu.com/releases/14.04/ubuntu-14.04.3-server-amd64.iso",
+
+    "update": "true",
+    "whiteout": "false",
+    "unique_host_ssh_key": "true",
+
+    "VMWARE-HOST": "{{env `PACKER_VMWARE_HOST`}}",
+    "VMWARE-USERNAME": "{{env `PACKER_VMWARE_USERNAME`}}",
+    "VMWARE-PASSWORD": "{{env `PACKER_VMWARE_PASSWORD`}}",
+    "VMWARE-DATASTORE": "{{env `PACKER_VMWARE_DATASTORE`}}",
+    "VMWARE-NETWORK": "{{env `PACKER_VMWARE_NETWORK`}}",
+    "VMWARE-MAC": "{{env `PACKER_VMWARE_MAC`}}",
+    "VMWARE-VM-VERSION": "{{env `PACKER_VMWARE_VM_VERSION`}}"
+
+  },
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "vm_name": "{{ user `vm_name`}}",
+      "disk_size": "{{ user `disk_size`}}",
+      "disk_type_id": "thin",
+      "output_directory": "builds/{{ user `vm_name`}}",
+
+      "boot_wait": "10s",
+      "http_directory": "http",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "ssh_port": 22,
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_wait_timeout": "20000s",
+
+      "headless": "{{user `headless`}}",
+
+      "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz auto",
+        " console-setup/ask_detect=false",
+        " console-setup/layoutcode=us",
+        " console-setup/modelcode=pc105",
+        " debconf/frontend=noninteractive",
+        " debian-installer=en_US",
+        " fb=false",
+        " initrd=/install/initrd.gz",
+        " kbd-chooser/method=us",
+        " keyboard-configuration/modelcode=SKIP",
+        " keyboard-configuration/layout=USA",
+        " keyboard-configuration/variant=USA",
+        " locale=en_US",
+        " netcfg/get_hostname={{ user `hostname` }}",
+        " passwd/root-login=true",
+        " passwd/make-user=false",
+        " passwd/root-password={{user `ssh_password`}}",
+        " passwd/root-password-again={{user `ssh_password`}}",
+        " noapic",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }}",
+        " -- ",
+        "<enter>"
+      ],
+      "shutdown_command": "shutdown -h now",
+
+      "version": "{{user `VMWARE-VM-VERSION`}}",
+
+      "remote_host": "{{user `VMWARE-HOST`}}",
+      "remote_datastore": "{{user `VMWARE-DATASTORE`}}",
+      "remote_username": "{{user `VMWARE-USERNAME`}}",
+      "remote_password": "{{user `VMWARE-PASSWORD`}}",
+      "remote_type": "esx5",
+
+      "vnc_port_min": 8080,
+      "vnc_port_max": 8080,
+
+      "vmx_data": {
+
+        "guestOS": "{{ user `vmware_guest_os_type` }}",
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}",
+        "cpuid.coresPerSocket": "1",
+
+        "ethernet0.virtualDev": "vmxnet3",
+        "ethernet0.networkName": "{{user `VMWARE-NETWORK`}}",
+        "ethernet0.Address": "{{user `VMWARE-MAC`}}",
+        "ethernet0.addressType": "static",
+
+        "ide0:0.fileName": "disk.vmdk",
+        "ide0:0.present": "TRUE",
+        "ide0:0.redo": "",
+        "scsi0:0.present": "FALSE"
+
+      },
+
+      "vmx_data_post": {
+        "ethernet0.addressType": "generated",
+        "ethernet0.Address": "",
+        "ide1:0.startConnected": "FALSE",
+        "ide1:0.deviceType": "cdrom-raw",
+        "ide1:0.clientDevice": "TRUE",
+        "ide1:0.fileName": "emptyBackingString",
+        "ide1:0.present": "TRUE"
+      }
+    }
+
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+
+      "environment_vars": [
+        "CM={{user `cm`}}",
+        "CM_VERSION={{user `cm_version`}}",
+        "UPDATE={{user `update`}}",
+        "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+        "DOCKER={{user `docker`}}",
+        "VMWARE_TOOLS_LOCATION={{ user `vmware_tools_location`}}",
+        "VMWARE_TOOLS_TYPE={{ user `vmware_tools_type`}}",
+        "UNIQUE_HOST_SSH_KEY={{ user `unique_host_ssh_key`}}",
+        "SSH_USERNAME={{user `ssh_username`}}",
+        "SSH_PASSWORD={{user `ssh_password`}}",
+        "SSH_PUBLIC_KEY={{user `ssh_public_key`}}",
+        "WHITEOUT={{user `whiteout`}}",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "ftp_proxy={{user `ftp_proxy`}}",
+        "rsync_proxy={{user `rsync_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+
+      "execute_command": "{{.Vars}} bash '{{.Path}}'",
+      "scripts": [
+        "scripts/update.sh",
+        "scripts/tweaks.sh",
+        "scripts/docker.sh",
+        "scripts/vm-tools.sh",
+        "scripts/cmtool.sh",
+        "scripts/motd.sh",
+        "scripts/minimize.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ]
+
+}
