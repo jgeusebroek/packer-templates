@@ -102,7 +102,6 @@
         "scripts/fix-slow-dns.sh",
         "scripts/update.sh",
         "scripts/vagrant.sh",
-        "scripts/kernel-docker.sh",
         "scripts/docker.sh",
         "scripts/tweaks.sh",
         "scripts/vm-tools.sh",

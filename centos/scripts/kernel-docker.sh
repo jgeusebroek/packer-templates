@@ -5,7 +5,7 @@ if [[ ! "$DOCKER" =~ ^(true|yes|on|1|TRUE|YES|ON])$ ]]; then
 fi
 
 # Configure the elrepo repository so we can upgrade the kernel to 3.13
-# Any kernel above 3.8 is more docker-friendly
+# Any kernel above 3.10 is more docker-friendly
 echo "==> Configuring elrepo repository"
 yum install -y http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm
 

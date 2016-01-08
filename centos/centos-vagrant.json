@@ -150,7 +150,6 @@
         "scripts/update.sh",
         "scripts/vagrant.sh",
         "scripts/tweaks.sh",
-        "scripts/kernel-docker.sh",
         "scripts/docker.sh",
         "scripts/vm-tools.sh",
         "scripts/cmtool.sh",
