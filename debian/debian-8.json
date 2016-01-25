@@ -11,8 +11,8 @@
 
   "preseed" : "preseed_jessie.cfg",
 
-  "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
-  "iso_checksum_type": "md5",
-  "iso_name": "debian-8.2.0-amd64-netinst.iso",
-  "iso_url": "http://cdimage.debian.org/debian-cd/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso"
+  "iso_checksum": "bbc286b59fcbabd0a1cab7fb083d98ae133ff909",
+  "iso_checksum_type": "sha1",
+  "iso_name": "debian-8.3.0-amd64-netinst.iso",
+  "iso_url": "http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso"
 }

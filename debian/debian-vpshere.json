@@ -31,10 +31,10 @@
     "ssh_password": "toor",
     "ssh_public_key": "{{env `PACKER_VMWARE_USERNAME`}}ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCKX1GgcYxFjdSqUIMoQi41TnF8H9U3L7UYEkRHDxLWE+niTK+cJWZRLCsZFctP2uD3clTcFtsroIUPpNH7aNIQXV7tn74wQtms72cgAdldMjT5mbfkZzspC0KBTIsJAWIFflVAvu/zWD1cl7pDlA9w6t80OzAVe9KqTcpKJjxL4K5iPKOPIeFqzYDVUGqAbR7HlWOdGNKOB1RmakJMvKjW7nIEL81DGjaC/UK+Tzjg8M6J3idNjHnnRSM5O4UsnWBGHbkjSlFihqS333xG31YteGBtUa1mhg25M4h5Pl08U4Mjs8lyNvM3Mxws54/dP+0YHI5/VhUW3EqSRGHw+G1 images@intellit.nl",
 
-    "iso_checksum": "762eb3dfc22f85faf659001ebf270b4f",
-    "iso_checksum_type": "md5",
-    "iso_name": "debian-8.2.0-amd64-netinst.iso",
-    "iso_url": "http://cdimage.debian.org/debian-cd/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
+    "iso_checksum": "bbc286b59fcbabd0a1cab7fb083d98ae133ff909",
+    "iso_checksum_type": "sha1",
+    "iso_name": "debian-8.3.0-amd64-netinst.iso",
+    "iso_url": "http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
 
     "update": "false",
     "whiteout": "false",
