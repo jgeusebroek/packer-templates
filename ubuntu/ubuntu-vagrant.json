@@ -60,32 +60,28 @@
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_wait_timeout": "10000s",
 
+      "floppy_files": [
+        "http/{{user `preseed`}}"
+      ],
+
       "headless": "{{ user `headless`}}",
 
       "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz auto",
-        " console-setup/ask_detect=false",
-        " console-setup/layoutcode=us",
-        " console-setup/modelcode=pc105",
-        " debconf/frontend=noninteractive",
-        " debian-installer=en_US",
-        " fb=false",
-        " initrd=/install/initrd.gz",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz noapic",
+        " debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        " fb=false debconf/frontend=noninteractive",
         " kbd-chooser/method=us",
         " keyboard-configuration/modelcode=SKIP",
         " keyboard-configuration/layout=USA",
-        " keyboard-configuration/variant=USA",
-        " locale=en_US",
+        " keyboard-configuration/variant=USA console-setup/ask_detect=false",
         " netcfg/get_hostname={{ user `hostname` }}",
         " passwd/user-fullname={{ user `ssh_fullname` }}",
         " passwd/user-password={{ user `ssh_password` }}",
         " passwd/user-password-again={{ user `ssh_password` }}",
         " passwd/username={{ user `ssh_username` }}",
-        " noapic",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }}",
-        " -- ",
-        "<enter>"
+        " file=/floppy/{{ user `preseed` }}",
+        " initrd=/install/initrd.gz -- <enter> "
       ],
       "shutdown_command": "echo '{{user `ssh_password`}}'|sudo -S shutdown -h now",
 
@@ -114,34 +110,31 @@
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_wait_timeout": "10000s",
 
+      "floppy_files": [
+        "http/{{user `preseed`}}"
+      ],
+
       "headless": "{{ user `headless`}}",
 
       "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz auto",
-        " console-setup/ask_detect=false",
-        " console-setup/layoutcode=us",
-        " console-setup/modelcode=pc105",
-        " debconf/frontend=noninteractive",
-        " debian-installer=en_US",
-        " fb=false",
-        " initrd=/install/initrd.gz",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz noapic",
+        " debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        " fb=false debconf/frontend=noninteractive",
         " kbd-chooser/method=us",
         " keyboard-configuration/modelcode=SKIP",
         " keyboard-configuration/layout=USA",
-        " keyboard-configuration/variant=USA",
-        " locale=en_US",
+        " keyboard-configuration/variant=USA console-setup/ask_detect=false",
         " netcfg/get_hostname={{ user `hostname` }}",
         " passwd/user-fullname={{ user `ssh_fullname` }}",
         " passwd/user-password={{ user `ssh_password` }}",
         " passwd/user-password-again={{ user `ssh_password` }}",
         " passwd/username={{ user `ssh_username` }}",
-        " noapic",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }}",
-        " -- ",
-        "<enter>"
+        " file=/floppy/{{ user `preseed` }}",
+        " initrd=/install/initrd.gz -- <enter> "
       ],
       "shutdown_command": "echo '{{user `ssh_password`}}'|sudo -S shutdown -h now",
+      "post_shutdown_delay": "30s",
 
       "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",

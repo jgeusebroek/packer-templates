@@ -1,0 +1,17 @@
+{
+  "_comment": "Build with `packer build -var-file=ubuntu-1604.json ubuntu-vagrant.json`",
+
+  "vm_name": "ubuntu-1604",
+
+  "cpus": "4",
+  "disk_size": "20480",
+  "memory": "1024",
+
+  "preseed": "preseed_1604.cfg",
+  "docker": "false",
+
+  "iso_checksum": "de5ee8665048f009577763efbf4a6f0558833e59",
+  "iso_checksum_type": "sha1",
+  "iso_name": "ubuntu-16.04.1-server-amd64.iso",
+  "iso_url": "http://nl.releases.ubuntu.com/releases/16.04/ubuntu-16.04.1-server-amd64.iso"
+}
