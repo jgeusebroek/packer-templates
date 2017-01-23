@@ -11,8 +11,8 @@
 
   "preseed" : "preseed_jessie.cfg",
 
-  "iso_checksum": "447d74813eaf5172aab0d42e0d0c69d222f8e91e",
+  "iso_checksum": "81bc2c68de1e0581d19e4c559be913968cf8bb5a",
   "iso_checksum_type": "sha1",
-  "iso_name": "debian-8.6.0-amd64-netinst.iso",
-  "iso_url": "http://ftp.uni-stuttgart.de/debian-cd/current/amd64/iso-cd/debian-8.6.0-amd64-netinst.iso"
+  "iso_name": "debian-8.7.1-amd64-netinst.iso",
+  "iso_url": "http://ftp.uni-stuttgart.de/debian-cd/current/amd64/iso-cd/debian-8.7.1-amd64-netinst.iso"
 }
