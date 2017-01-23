@@ -83,6 +83,8 @@
       "remote_password": "{{user `VMWARE-PASSWORD`}}",
       "remote_type": "esx5",
 
+      "vnc_bind_address": "0.0.0.0",
+      "vnc_disable_password": "true",
       "vnc_port_min": 8080,
       "vnc_port_max": 8080,
 
