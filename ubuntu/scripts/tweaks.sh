@@ -15,7 +15,7 @@ sed -i 's/#PasswordAuthentication no/PasswordAuthentication no/' /etc/ssh/sshd_c
 # Verwijder referentie naar 127.0.1.1 uit hosts
 sed -i '/127.0.1.1/d' /etc/hosts
 
-PACKAGES="bzip2 curl rsync sudo"
+PACKAGES="bzip2 curl rsync sudo python zsh"
 apt-get install -y --no-install-recommends $PACKAGES
 
 if [ ! -z "$SSH_PUBLIC_KEY" ]; then
