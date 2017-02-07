@@ -116,10 +116,9 @@
         "ethernet0.Address": "{{user `VMWARE-MAC`}}",
         "ethernet0.addressType": "static",
 
-        "ide0:0.fileName": "disk.vmdk",
-        "ide0:0.present": "TRUE",
-        "ide0:0.redo": "",
-        "scsi0:0.present": "FALSE"
+        "scsi0:0.fileName": "disk.vmdk",
+        "scsi0:0.present": "TRUE",
+        "scsi0:0.redo": ""
 
       },
 
