@@ -1,0 +1,18 @@
+{
+  "_comment": "Build with `packer build -var-file=debian-9.json debian-vagrant.json`",
+
+  "vm_name": "debian-9",
+  "hostname": "localhost",
+  "domain": "",
+
+  "cpus": "4",
+  "disk_size": "20480",
+  "memory": "1024",
+
+  "preseed" : "preseed_stretch.cfg",
+
+  "iso_checksum": "ed1cf0dea20831fb26661c10ca65340e3a3ea616",
+  "iso_checksum_type": "sha1",
+  "iso_name": "debian-9.5.0-amd64-netinst.iso",
+  "iso_url": "http://ftp.uni-stuttgart.de/debian-cd/current/amd64/iso-cd/debian-9.5.0-amd64-netinst.iso"
+}

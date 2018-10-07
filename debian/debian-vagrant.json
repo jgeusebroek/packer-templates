@@ -1,7 +1,7 @@
 {
   "variables": {
 
-    "vm_name": "debian-8",
+    "vm_name": "debian-9",
     "hostname": "localhost",
     "domain": "",
 
@@ -14,7 +14,7 @@
     "disk_size": "20480",
     "memory": "1024",
 
-    "preseed": "preseed_jessie.cfg",
+    "preseed": "preseed_stretch.cfg",
     "install_vagrant_key": "true",
 
     "cm": "nocm",
@@ -30,10 +30,10 @@
     "ssh_password": "vagrant",
     "ssh_username": "vagrant",
 
-    "iso_checksum": "bbc286b59fcbabd0a1cab7fb083d98ae133ff909",
+    "iso_checksum": "ed1cf0dea20831fb26661c10ca65340e3a3ea616",
     "iso_checksum_type": "sha1",
-    "iso_name": "debian-8.3.0-amd64-netinst.iso",
-    "iso_url": "http://cdimage.debian.org/debian-cd/8.3.0/amd64/iso-cd/debian-8.3.0-amd64-netinst.iso",
+    "iso_name": "debian-9.5.0-amd64-netinst.iso",
+    "iso_url": "http://ftp.uni-stuttgart.de/debian-cd/current/amd64/iso-cd/debian-9.5.0-amd64-netinst.iso",
 
     "update": "false",
     "whiteout": "true",
