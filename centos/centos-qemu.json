@@ -1,7 +1,7 @@
 {
   "variables": {
 
-    "vm_name": "centos-7",
+    "vm_name": "packer-centos-7-x86_64",
 
     "cpus": "4",
     "disk_size": "20480",
