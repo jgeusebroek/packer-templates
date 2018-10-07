@@ -6,6 +6,9 @@
 *output-*
 output/*
 builds/*
+centos/builds/*
+ubuntu/builds/*
+debian/builds/*
 packer_cache
 .vagrant
 Vagrantfile
