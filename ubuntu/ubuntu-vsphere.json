@@ -136,6 +136,7 @@
   "provisioners": [
     {
       "type": "shell",
+      "expect_disconnect": "true",
 
       "environment_vars": [
         "CM={{user `cm`}}",

@@ -10,8 +10,8 @@
   "preseed": "preseed_1604.cfg",
   "docker": "false",
 
-  "iso_checksum": "de5ee8665048f009577763efbf4a6f0558833e59",
+  "iso_checksum": "ee32c555567dd5407c58a1cfc7e668ab37a99d99",
   "iso_checksum_type": "sha1",
   "iso_name": "ubuntu-16.04.1-server-amd64.iso",
-  "iso_url": "http://nl.releases.ubuntu.com/releases/16.04/ubuntu-16.04.1-server-amd64.iso"
+  "iso_url": "http://nl.releases.ubuntu.com/releases/16.04/ubuntu-16.04.5-server-amd64.iso"
 }
