@@ -10,8 +10,8 @@
   "kickstart": "ks7.cfg",
   "docker": "false",
 
-  "iso_checksum": "156f4cb711fdbd668943711f853fb6da89581aad",
+  "iso_checksum": "cc75ca6ee278ec21b1d6fc6ce12f097b13836d2a",
   "iso_checksum_type": "sha1",
-  "iso_name": "CentOS-7-x86_64-NetInstall-1611.iso",
-  "iso_url": "http://ftp.nluug.nl/ftp/pub/os/Linux/distr/CentOS/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1611.iso"
+  "iso_name": "CentOS-7-x86_64-NetInstall-1804.iso",
+  "iso_url": "http://ftp.nluug.nl/ftp/pub/os/Linux/distr/CentOS/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1804.iso"
 }
